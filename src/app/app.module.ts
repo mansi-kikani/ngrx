@@ -4,6 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { authReducer } from './_reducers/auth.reducer';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -11,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({ user: authReducer }),
   ],
   providers: [],
   bootstrap: [AppComponent],
