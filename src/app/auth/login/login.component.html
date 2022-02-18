@@ -13,12 +13,11 @@
           <label for="exampleInputEmail1">User Name</label>
           <input
             type="text"
-            formControlName="email"
+            formControlName="username"
             class="form-control"
             required
-            name="email"
-            aria-describedby="emailHelp"
-            placeholder="Enter Email"
+            name="name"
+            placeholder="Enter username"
           />
           <small id="emailHelp" class="form-text text-muted"
             >We'll never share your details.</small
@@ -35,14 +34,16 @@
             placeholder="Password"
           />
         </div>
+        <p>No Account? <a routerLink="/signup">Sign Up Here!</a></p>
+        <div class="btnholder">
+          <button
+            type="submit"
+            class="btn btn-danger justify-content-md-center"
+          >
+            Submit
+          </button>
+        </div>
       </form>
-    </div>
-
-    <p>No Account? <a routerLink="/signup">Sign Up Here!</a></p>
-    <div class="btnholder">
-      <button type="submit" class="btn btn-danger justify-content-md-center">
-        Submit
-      </button>
     </div>
   </div>
 </div>
