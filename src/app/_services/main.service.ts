@@ -30,7 +30,7 @@ export class MainService {
       .pipe(
         map((response: any) => {
           console.log(`response`, response);
-          this.router.navigate(['user/dashboard']);
+          this.router.navigate(['/user/dashboard']);
           response;
         }),
         catchError((err) => {
@@ -51,5 +51,15 @@ export class MainService {
           return of([]);
         })
       );
+  }
+
+  getUsers() {
+    return this.http.get('https://fakestoreapi.com/users').pipe(
+      map((response: any) => response),
+      catchError((err) => {
+        console.log(`err`, err);
+        return of([]);
+      })
+    );
   }
 }
