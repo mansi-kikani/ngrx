@@ -5,11 +5,13 @@ import { map, catchError } from 'rxjs/operators';
 import { User } from '../modal/user';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { Post } from '../modal/post';
 @Injectable({
   providedIn: 'root',
 })
 export class MainService {
   private userLoggedIn = new Subject<boolean>();
+  private PostsUrl: string = 'https://jsonplaceholder.typicode.com/posts';
   constructor(private http: HttpClient, private router: Router) {
     this.userLoggedIn.next(false);
   }
@@ -30,7 +32,7 @@ export class MainService {
       .pipe(
         map((response: any) => {
           console.log(`response`, response);
-          this.router.navigate(['/user/dashboard']);
+          this.router.navigate(['/posts']);
           response;
         }),
         catchError((err) => {
@@ -53,13 +55,27 @@ export class MainService {
       );
   }
 
-  getUsers() {
-    return this.http.get('https://fakestoreapi.com/users').pipe(
-      map((response: any) => response),
-      catchError((err) => {
-        console.log(`err`, err);
-        return of([]);
-      })
+  getPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>(this.PostsUrl);
+  }
+
+  getPostById(id: number): Observable<Post> {
+    console.log(`id`, id)
+    return this.http.get<Post>(`${this.PostsUrl}/${id}`);
+  }
+
+  createPost(payload: Post): Observable<Post> {
+    return this.http.post<Post>(this.PostsUrl, payload);
+  }
+
+  updatePost(Post: Post): Observable<Post> {
+    return this.http.patch<Post>(
+      `${this.PostsUrl}/${Post.id}`,
+      Post
     );
+  }
+
+  deletePost(payload: number) {
+    return this.http.delete(`${this.PostsUrl}/${payload}`);
   }
 }

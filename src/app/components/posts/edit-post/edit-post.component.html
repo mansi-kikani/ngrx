@@ -1,0 +1,40 @@
+<div class="mt-4">
+  <h3>Edit Post</h3>
+  <form
+    [formGroup]="editPostForm"
+    (submit)="editPosts()"
+    class="form-inline mb-4"
+  >
+    <label class="sr-only" for="Name">User Id</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="userId"
+        placeholder="Enter user id"
+      />
+    </div>
+
+    <label class="sr-only" for="Phone">Title</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="title"
+        placeholder="Enter title"
+      />
+    </div>
+
+    <label class="sr-only" for="Address">Body</label>
+    <div class="input-group mb-2 mr-sm-2">
+      <input
+        type="text"
+        class="form-control"
+        formControlName="body"
+        placeholder="Enter body"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary mb-2">Update Post</button>
+  </form>
+</div>

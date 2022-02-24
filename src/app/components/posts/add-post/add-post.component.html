@@ -1,0 +1,43 @@
+<div class="mt-3 mb-3">
+  <h3>Create new Post</h3>
+
+  <form class="form-inline mb-4">
+    <form
+      [formGroup]="addPostForm"
+      (submit)="createPost()"
+      class="form-inline mb-4"
+    >
+      <label class="sr-only" for="Name">User Id</label>
+      <div class="input-group mb-2 mr-sm-2">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="userId"
+          placeholder="Add userId"
+        />
+      </div>
+
+      <label class="sr-only" for="Phone">Title</label>
+      <div class="input-group mb-2 mr-sm-2">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="title"
+          placeholder="Add Title"
+        />
+      </div>
+
+      <label class="sr-only" for="Address">Body</label>
+      <div class="input-group mb-2 mr-sm-2">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="body"
+          placeholder="Add Body"
+        />
+      </div>
+
+      <button type="submit" class="btn btn-primary mb-2">Add Post</button>
+    </form>
+  </form>
+</div>

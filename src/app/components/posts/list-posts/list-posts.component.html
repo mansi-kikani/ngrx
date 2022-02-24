@@ -1,0 +1,37 @@
+<div class="d-flex justify-content-between ">
+  <h3>Posts</h3>
+  <!-- <button type="button" class="btn btn-success" [routerLink]="['/posts/add']">Add</button> -->
+
+</div>
+<table class="table table-hover">
+  <thead>
+    <tr class="table-primary">
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Body</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td
+        colspan="5"
+        class="alert alert-danger"
+        *ngIf="error$ | async as error"
+      >
+        {{ error }}
+      </td>
+    </tr>
+    <tr></tr>
+    <tr *ngFor="let post of posts$ | async">
+      <th scope="row">{{ post.id }}</th>
+      <th scope="row">{{ post.title }}</th>
+      <th>{{ post.body }}</th>
+      <th>
+        <a (click)="editPost(post)">Edit</a>
+        <br />
+        <a (click)="deletePost(post)">delete</a>
+      </th>
+    </tr>
+  </tbody>
+</table>

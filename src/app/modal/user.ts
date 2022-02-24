@@ -25,3 +25,12 @@ export class AddressData {
   number?: Number;
   zipcode?: number;
 }
+
+export const Book = [
+  {
+    title: '',
+    author: '',
+    edition: '',
+    location: false,
+  },
+];
