@@ -15,15 +15,24 @@ import { Post } from '../../../modal/post';
 export class ListPostsComponent implements OnInit {
   posts$!: Observable<Post[]>;
   error$!: Observable<String>;
-  constructor(private store: Store<fromPost.AppState>) {}
+  constructor(private store: Store<fromPost.AppState>) { }
 
   ngOnInit(): void {
     this.store.dispatch(postActions.loadPosts());
     this.posts$ = this.store.pipe(select(fromPost.getPosts));
     this.error$ = this.store.pipe(select(fromPost.getError));
   }
-  editPost(data:Post) {
+  editPost(data: Post) {
     this.store.dispatch(postActions.loadPost({ payload: data.id }));
+ 
   }
-  deletePost(customer: Post) {}
+  deletePost(data: Post) {
+    if (confirm("Are You Sure You want to Delete the User?")) {
+      this.store.dispatch(postActions.deletePost({ payload: data.id }));
+
+      setTimeout(() => {
+        this.store.dispatch(postActions.loadPosts());
+      }, 1000);
+    }
+  }
 }

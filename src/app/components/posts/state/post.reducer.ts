@@ -1,10 +1,10 @@
-import * as customerActions from './post.actions';
+import * as postActions from './post.actions';
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Post } from 'src/app/modal/post';
 import * as fromRoot from "../../../state/app-state";
 export interface PostState extends EntityState<Post> {
-  selectedPostId: number ;
+  selectedPostId: number;
   loading: boolean;
   loaded: boolean;
   error: string;
@@ -29,31 +29,58 @@ export const defaultPost: PostState = {
 
 export const initialState = postAdapter.getInitialState(defaultPost);
 
-export const customerReducer = createReducer(
+export const postReducer = createReducer(
   initialState,
-  on(customerActions.loadPostsSuccess, (state, action) => {
+  on(postActions.loadPostsSuccess, (state, action) => {
     return postAdapter.setAll(action.payload, {
       ...state,
       loading: false,
       loaded: true,
     });
   }),
-  on(customerActions.LoadPostsFail, (state, action) => {
+  on(postActions.LoadPostsFail, (state, action) => {
     return {
       ...state,
-      entities:{},
+      entities: {},
       loading: false,
       loaded: true,
       error: action.payload
     };
   }),
-  on(customerActions.loadPostSuccess, (state, action) => {
+  on(postActions.loadPostSuccess, (state, action) => {
     return postAdapter.addOne(action.payload, {
       ...state,
       selectedPostId: action.payload.id
     });
   }),
-  on(customerActions.loadPostFail, (state, action) => {
+  on(postActions.deletePostSuccess, (state, action) => {
+    return postAdapter.removeOne(action.payload, state);
+  }),
+
+  on(postActions.updatePostSuccess, (state, action) => {
+    return postAdapter.updateOne(action.payload, state);
+  }),
+
+  on(postActions.createPostSuccess, (state, action) => {
+    return postAdapter.addOne(action.payload, state);
+  }),
+
+
+  on(postActions.createPostFail, (state, action) => {
+    return {
+      ...state,
+      error: action.payload
+    };
+  }),
+
+  on(postActions.deletePostFail, (state, action) => {
+    return {
+      ...state,
+      error: action.payload
+    };
+  }),
+
+  on(postActions.loadPostFail, (state, action) => {
     return {
       ...state,
       error: action.payload
@@ -77,7 +104,7 @@ export const getCurrentPostId = createSelector(
 export const getCurrentPost = createSelector(
   getPostFeatureState,
   getCurrentPostId,
-  (state :PostState) => state.entities[state.selectedPostId]
+  (state: PostState) => state.entities[state.selectedPostId]
 );
 
 export const getError = createSelector(

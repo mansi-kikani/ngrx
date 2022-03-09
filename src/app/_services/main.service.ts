@@ -59,13 +59,12 @@ export class MainService {
     return this.http.get<Post[]>(this.PostsUrl);
   }
 
-  getPostById(id: number): Observable<Post> {
-    console.log(`id`, id)
-    return this.http.get<Post>(`${this.PostsUrl}/${id}`);
+  getPostById(data:any): Observable<Post> {
+    return this.http.get<Post>(`${this.PostsUrl}/${data.payload}`);
   }
 
-  createPost(payload: Post): Observable<Post> {
-    return this.http.post<Post>(this.PostsUrl, payload);
+  createPost(payload:any): Observable<Post> {
+    return this.http.post<Post>(this.PostsUrl, payload.payload);
   }
 
   updatePost(Post: Post): Observable<Post> {
@@ -75,7 +74,7 @@ export class MainService {
     );
   }
 
-  deletePost(payload: number) {
-    return this.http.delete(`${this.PostsUrl}/${payload}`);
+  deletePost(payload: any) {
+    return this.http.delete(`${this.PostsUrl}/${payload.payload}`);
   }
 }

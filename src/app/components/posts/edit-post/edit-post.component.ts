@@ -15,7 +15,7 @@ export class EditPostComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private store: Store<fromPosts.AppState>
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.editPostForm = this.fb.group({
@@ -25,7 +25,7 @@ export class EditPostComponent implements OnInit {
       id: 1,
     });
 
-    const post$: Observable<Post | undefined> = this.store.select(fromPosts.getCurrentPost);
+    const post$ = this.store.select(fromPosts.getCurrentPost);
 
     post$.subscribe((post) => {
       if (post) {
@@ -33,11 +33,24 @@ export class EditPostComponent implements OnInit {
           title: post.title,
           userId: post.userId,
           body: post.body,
-          id: 1,
+          id: post.id,
         });
       }
     });
   }
 
-  editPosts() {}
+  editPost() {
+    const updatedPost: Post = {
+      title: this.editPostForm.value.title,
+      userId: this.editPostForm.value.userId,
+      body: this.editPostForm.value.body,
+      id: this.editPostForm.value.id
+    };
+
+    this.store.dispatch(postActions.updatePost({ payload: updatedPost }));
+
+    // setTimeout(() => {
+    //   this.store.dispatch(postActions.loadPosts());
+    // }, 1500);
+  }
 }

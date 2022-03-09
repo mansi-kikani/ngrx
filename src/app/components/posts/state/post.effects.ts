@@ -1,52 +1,80 @@
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
+import { Update } from '@ngrx/entity';
 import { of } from 'rxjs';
-import { map, mergeMap, catchError, tap, concatMap } from 'rxjs/operators';
+import { map, mergeMap, catchError, tap, concatMap, switchMap } from 'rxjs/operators';
 
 import { MainService } from '../../../_services/main.service';
 import * as postActions from './post.actions';
 import { Post } from '../../../modal/post';
 import { Injectable } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DeletePostComponent } from 'src/app/shared/delete-post/delete-post.component';
 
 @Injectable()
 export class CustomerEffect {
-  constructor(private actions$: Actions, private mainService: MainService) {}
+  constructor(private actions$: Actions, private mainService: MainService, private modalService: NgbModal) { }
 
   loadPosts$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(postActions.loadPosts),
-      mergeMap(() => this.mainService.getPosts()),
-      map((posts: Post[]) => postActions.loadPostsSuccess({ payload: posts })),
-      catchError((error) => of(postActions.LoadPostsFail({ payload: error }))),
-      tap(() => {
-        // console.log('login done');
-      })
-    )
-  );
-  createPost$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(postActions.ActionTypes.CREATE_POST),
-      mergeMap((posts: Post) => this.mainService.createPost(posts)),
-      map((posts: Post) => postActions.createPostSuccess({ payload: posts })),
-      catchError((error) => of(postActions.createPostFail({ payload: error }))),
-      tap(() => {
-        // console.log('login done');
-      })
+      ofType(postActions.ActionTypes.LOAD_POSTS),
+      mergeMap((action: postActions.ActionTypes.LOAD_POSTS) => this.mainService.getPosts().pipe(
+        map((posts: Post[]) => postActions.loadPostsSuccess({ payload: posts })),
+        catchError((error) => of(postActions.LoadPostsFail({ payload: error }))),
+      ))
     )
   );
 
-  // loadPost$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(postActions.ActionTypes.LOAD_POST),
-  //     mergeMap((post:Post) => {
-  //       console.log(`post`, post);
-  //       this.mainService.getPostById(post.payload);
-  //     }),
-  //     map((posts: Post) => postActions.loadPostSuccess({ payload: posts })),
-  //     catchError((error) => of(postActions.loadPostFail({ payload: error }))),
-  //     tap(() => {
-  //       // console.log('login done');
-  //     })
-  //   )
-  // );
+
+  loadPost$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(postActions.ActionTypes.LOAD_POST),
+      mergeMap((action: postActions.ActionTypes.LOAD_POST) => this.mainService.getPostById(action).pipe(
+        map((post: Post) => postActions.loadPostSuccess({ payload: post })),
+        catchError((error) => of(postActions.loadPostFail({ payload: error }))),
+      ))
+    )
+  );
+
+  createPost$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(postActions.ActionTypes.CREATE_POST),
+      map((action: Post) => action),
+      mergeMap((action: Post) =>
+        this.mainService.createPost(action).pipe(
+          map((newPost: Post) => postActions.createPostSuccess({ payload: newPost })),
+          tap((res) => console.log(`res`, res)),
+          catchError(err => of(postActions.createPostFail(err)))
+        )
+      )
+    ));
+
+  deletePost$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(postActions.ActionTypes.DELETE_POST),
+      concatMap((id: number) =>
+        this.mainService.deletePost(id).pipe(
+          map(() => postActions.deletePostSuccess({ payload: id })),
+          catchError(err => of(postActions.deletePostFail(err)))
+        )
+      )
+    ));
+
+
+
+  updatePost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postActions.updatePost),
+      switchMap((action) => {
+        return this.mainService.updatePost(action.payload).pipe(
+          map((data) => {
+            const updatedPost: Update<Post> = {
+              id: action.payload.id,
+              changes: data,
+            };
+            return postActions.updatePostSuccess({ payload: updatedPost });
+          })
+        );
+      })
+    );
+  });
 }

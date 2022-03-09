@@ -28,7 +28,7 @@ export class AddPostComponent implements OnInit {
       id: 1,
       userId: this.addPostForm.value.userId,
       title: this.addPostForm.value.title,
-      body: this.addPostForm.value.title,
+      body: this.addPostForm.value.body,
     };
 
     this.store.dispatch(postActions.CreatePost({ payload: newPost }));
