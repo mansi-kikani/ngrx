@@ -8,7 +8,6 @@ import * as postActions from './post.actions';
 import { Post } from '../../../modal/post';
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DeletePostComponent } from 'src/app/shared/delete-post/delete-post.component';
 
 @Injectable()
 export class CustomerEffect {
