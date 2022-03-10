@@ -3,18 +3,17 @@ import { CommonModule } from '@angular/common';
 
 import { EffectsModule, Actions } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostsRoutingModule } from './posts-routing.module';
 
 import { postReducer } from './state/post.reducer';
 import { CustomerEffect } from './state/post.effects';
 import { ListPostsComponent } from './list-posts/list-posts.component';
-import { AddPostComponent } from './add-post/add-post.component';
 import { PostsComponent } from './posts.component';
-import { EditPostComponent } from './edit-post/edit-post.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddEditPostsComponent } from './add-edit-posts/add-edit-posts.component';
 @NgModule({
-  declarations: [ListPostsComponent, AddPostComponent, PostsComponent, EditPostComponent],
+  declarations: [ListPostsComponent, PostsComponent, AddEditPostsComponent],
   imports: [
     CommonModule,
     PostsRoutingModule,
@@ -25,4 +24,4 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     NgbModule
   ],
 })
-export class PostModule {}
+export class PostModule { }

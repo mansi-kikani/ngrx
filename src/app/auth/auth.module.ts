@@ -5,6 +5,8 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './state/auth.effects';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,8 @@ import { FormsModule , ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    EffectsModule.forFeature([AuthEffects])
   ]
 })
 export class AuthModule { }

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import * as postActions from '../state/post.actions';
 import * as fromPost from '../state/post.reducer';
-import { Post } from '../../../modal/post';
+import { Post } from '../../../models/post';
 
 @Component({
   selector: 'app-list-posts',

@@ -4,24 +4,22 @@
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <h2 class="loginhead">Login</h2>
         <div class="form-group">
-          <!-- <div
-            *ngIf="loginForm.touched && loginForm.invalid"
-            class="alert alert-danger"
-          >
-            Please Fill the form
-          </div> -->
           <label for="exampleInputEmail1">User Name</label>
           <input
             type="text"
-            formControlName="username"
+            formControlName="email"
             class="form-control"
             required
-            name="name"
-            placeholder="Enter username"
+            name="email"
+            placeholder="Enter email"
           />
-          <small id="emailHelp" class="form-text text-muted"
-            >We'll never share your details.</small
-          >
+          <div
+          *ngIf="f.email.touched && !f.email.valid"
+          class="invalid-controls"
+        >
+          <span *ngIf="f.email.errors?.required">Email is required.</span>
+          <span *ngIf="f.email.errors?.email">Invalid Email.</span>
+        </div>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
@@ -33,12 +31,21 @@
             required
             placeholder="Password"
           />
+          <div
+            *ngIf="f.password.touched && !f.password.valid"
+            class="invalid-controls"
+          >
+            <span *ngIf="f.password.errors?.required"
+              >Password is required.</span
+            >
+          </div>
         </div>
         <p>No Account? <a routerLink="/signup">Sign Up Here!</a></p>
         <div class="btnholder">
           <button
             type="submit"
             class="btn btn-danger justify-content-md-center"
+            [disabled]="!loginForm.valid"
           >
             Submit
           </button>

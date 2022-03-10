@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 import { Update } from '@ngrx/entity';
 
-import { Post } from '../../../modal/post';
+import { Post } from '../../../models/post';
 
 export enum ActionTypes {
   LOAD_POSTS = '[Post] Load Posts',

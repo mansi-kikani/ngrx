@@ -1,8 +1,8 @@
 import * as postActions from './post.actions';
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { Post } from 'src/app/modal/post';
-import * as fromRoot from "../../../state/app-state";
+import { Post } from 'src/app/models/post';
+import * as fromRoot from "../../../store/app-state";
 export interface PostState extends EntityState<Post> {
   selectedPostId: number;
   loading: boolean;

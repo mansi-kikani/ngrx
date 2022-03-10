@@ -5,7 +5,7 @@ import { map, mergeMap, catchError, tap, concatMap, switchMap } from 'rxjs/opera
 
 import { MainService } from '../../../_services/main.service';
 import * as postActions from './post.actions';
-import { Post } from '../../../modal/post';
+import { Post } from '../../../models/post';
 import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -22,7 +22,6 @@ export class CustomerEffect {
       ))
     )
   );
-
 
   loadPost$ = createEffect(() =>
     this.actions$.pipe(
@@ -57,8 +56,6 @@ export class CustomerEffect {
         )
       )
     ));
-
-
 
   updatePost$ = createEffect(() => {
     return this.actions$.pipe(
