@@ -10,11 +10,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { appReducer } from './store/app-state';
 import { AuthEffects } from './auth/state/auth.effects';
-import { HeaderComponent } from './shared/components/header/header.component';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
 import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, LoadingSpinnerComponent],
+  declarations: [AppComponent, LoadingSpinnerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,6 +25,7 @@ import { ToastrModule } from 'ngx-toastr';
     StoreModule.forRoot({}),
     EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot(appReducer),
+    BrowserAnimationsModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],

@@ -75,6 +75,6 @@ export class MainService {
   }
 
   deletePost(payload: any) {
-    return this.http.delete(`${this.PostsUrl}/${payload.payload}`);
+    return this.http.delete<Post>(`${this.PostsUrl}/${payload.payload}`);
   }
 }

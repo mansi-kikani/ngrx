@@ -1,6 +1,6 @@
 import { AuthService } from '../../_services/auth.service';
 import { exhaustMap, map, catchError, tap, mergeMap } from 'rxjs/operators';
-import { login,loginSuccess,signup,signupSuccess } from './auth.actions';
+import { autoLogout, login,loginSuccess,signup,signupSuccess } from './auth.actions';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -68,5 +68,19 @@ export class AuthEffects {
       })
     );
   });
+
+
+  logout$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(autoLogout),
+        map((action) => {
+          this.authService.logout();
+          this.router.navigate(['auth']);
+        })
+      );
+    },
+    { dispatch: false }
+  );
 
 }

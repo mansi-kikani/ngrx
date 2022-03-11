@@ -1,33 +1,34 @@
-
 <div class="d-flex align-items-center justify-content-between">
   <h4>Posts</h4>
-  <a  routerLink="add" class="btn btn-sm btn-success float-right">Add Post</a>
+  <a (click)="addPost()" class="btn btn-sm btn-success float-right">Add Post</a>
 </div>
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <th style="width: 30%">ID</th>
-            <th style="width: 30%">Title</th>
-            <th style="width: 30%">Body</th>
-            <th style="width: 10%"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr  *ngFor="let post of posts$ | async; else noData">
-            <td>{{post.id}} </td>
-            <td>{{post.title}}</td>
-            <td>{{post.body}}</td>
-            <td style="white-space: nowrap">
-                <a routerLink="edit/{{post.id}}"  class="btn btn-sm btn-primary mr-1">Edit</a>
-                <button (click)="deletePost(post)"  class="btn btn-sm btn-danger btn-delete-user">
-                    <span >Delete</span>
-                </button>
-            </td>
-        </tr>
-        <tr #noData>
+  <thead>
+    <tr>
+      <th style="width: 25%">ID</th>
+      <th style="width: 30%">Title</th>
+      <th style="width: 30%">Body</th>
+      <th style="width: 15%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let post of posts$ | async; else: noData">
+      <td>{{ post.id }}</td>
+      <td>{{ post.title }}</td>
+      <td>{{ post.body }}</td>
+      <td style="white-space: nowrap">
+        <a  style="margin-right: 5px;"   (click)="editPost(post)" class="btn btn-sm btn-primary">Edit</a>
+        <a
+          (click)="deletePost(post)"
+          class="btn btn-sm btn-danger"
+        >Delete</a>
+          <!-- <span>Delete</span> -->
+      </td>
+    </tr>
+    <!-- <tr #noData>
             <td colspan="4" class="text-center">
                 <span class="spinner-border spinner-border-lg align-center"></span>
             </td>
-        </tr>
-    </tbody>
+        </tr> -->
+  </tbody>
 </table>

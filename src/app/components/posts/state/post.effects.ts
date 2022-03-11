@@ -40,22 +40,24 @@ export class CustomerEffect {
       mergeMap((action: Post) =>
         this.mainService.createPost(action).pipe(
           map((newPost: Post) => postActions.createPostSuccess({ payload: newPost })),
-          tap((res) => console.log(`res`, res)),
+          // tap((res) => console.log(`res`, res)),
           catchError(err => of(postActions.createPostFail(err)))
         )
       )
     ));
 
-  deletePost$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(postActions.ActionTypes.DELETE_POST),
-      concatMap((id: number) =>
-        this.mainService.deletePost(id).pipe(
-          map(() => postActions.deletePostSuccess({ payload: id })),
-          catchError(err => of(postActions.deletePostFail(err)))
-        )
-      )
-    ));
+  deletePost$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(postActions.deletePost),
+      switchMap((action) => {
+        return this.mainService.deletePost(action).pipe(
+          map((data) => {
+            return postActions.deletePostSuccess({ payload: action.payload });
+          })
+        );
+      })
+    );
+  });
 
   updatePost$ = createEffect(() => {
     return this.actions$.pipe(

@@ -11,6 +11,7 @@ export enum ActionTypes {
   CREATE_POST = '[Post] Create Post',
   CREATE_POST_SUCCESS = '[Post] Create Post Success',
   CREATE_POST_FAIL = '[Post] Create Post Fail',
+
   DELETE_POST = "[Post] Delete Post",
   DELETE_POST_SUCCESS = "[Post] Delete Post Success",
   DELETE_POST_FAIL = "[Post] Delete Post Fail",
@@ -54,6 +55,7 @@ export const loadPostSuccess = createAction(
   ActionTypes.LOAD_POST_SUCCESS,
   props<{ payload: Post }>()
 );
+
 export const loadPostFail = createAction(
   ActionTypes.LOAD_POST_FAIL,
   props<{ payload: string }>()

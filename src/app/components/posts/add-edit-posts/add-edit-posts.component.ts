@@ -6,7 +6,6 @@ import * as fromPost from '../state/post.reducer';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
-
 @Component({
   selector: 'app-add-edit-posts',
   templateUrl: './add-edit-posts.component.html',
@@ -25,6 +24,7 @@ export class AddEditPostsComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.form = this.fb.group({
+      id: ['', Validators.required],
       userId: ['', Validators.required],
       title: ['', Validators.required],
       body: ['', Validators.required],
@@ -37,6 +37,7 @@ export class AddEditPostsComponent implements OnInit {
     if (!this.isAddMode) {
       this.store.dispatch(postActions.loadPost({ payload: parseInt(this.id) }));
       const post$ = this.store.select(fromPost.getCurrentPost);
+      
       post$.subscribe((post) => {
         if (post) {
           this.form.patchValue({
@@ -52,17 +53,23 @@ export class AddEditPostsComponent implements OnInit {
 
   onSubmit() {
     const newPost = {
-      id: 1,
+      id: this.form.value.id,
       userId: this.form.value.userId,
       title: this.form.value.title,
       body: this.form.value.body,
     };
-
-    this.store.dispatch(postActions.CreatePost({ payload: newPost }));
-    this.router.navigate(['/posts/list']);
-    this.toastr.success("success", "Post added Successfully!");
+    if(!this.isAddMode){
+      this.store.dispatch(postActions.updatePost({ payload: newPost }));
+      this.toastr.success("success", "Post updated Successfully!");
+    }
+    else{
+      this.store.dispatch(postActions.CreatePost({ payload: newPost }));
+      this.toastr.success("success", "Post added Successfully!");
+    }
+    this.router.navigate(['posts']);
     this.form.reset();
   }
+
   get f() {
     return this.form.controls;
   }

@@ -30,6 +30,15 @@ export class AuthService {
     );
   }
 
+
+  logout(){
+    localStorage.removeItem('userData');
+    if (this.timeoutInterval) {
+      clearTimeout(this.timeoutInterval);
+      this.timeoutInterval = null;
+    }
+  }
+
   setUserInLocalStorage(user: User) {
     localStorage.setItem('userData', JSON.stringify(user));
 
