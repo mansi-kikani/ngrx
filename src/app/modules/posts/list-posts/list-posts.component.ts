@@ -32,7 +32,7 @@ export class ListPostsComponent implements OnInit {
   }
   deletePost(data: Post) {
     if (confirm("Are You Sure You want to Delete the User?")) {
-      this.store.dispatch(postActions.deletePost({ payload: data.id }));
+      this.store.dispatch(postActions.deletePost({ id : data.id }));
     }
   }
 }

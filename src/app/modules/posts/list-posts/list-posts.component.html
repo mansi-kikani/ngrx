@@ -17,18 +17,21 @@
       <td>{{ post.title }}</td>
       <td>{{ post.body }}</td>
       <td style="white-space: nowrap">
-        <a  style="margin-right: 5px;"   (click)="editPost(post)" class="btn btn-sm btn-primary">Edit</a>
         <a
+          style="margin-right: 5px"
+          (click)="editPost(post)"
+          class="btn btn-sm btn-primary"
+          >Edit</a
+        >
+        <a
+          style="margin-right: 5px"
           (click)="deletePost(post)"
           class="btn btn-sm btn-danger"
-        >Delete</a>
-          <!-- <span>Delete</span> -->
+          >Delete</a
+        >
+
+        <a class="btn btn-sm btn-secondary" [routerLink]="['detail/' + post.id]" >Details</a>
       </td>
     </tr>
-    <!-- <tr #noData>
-            <td colspan="4" class="text-center">
-                <span class="spinner-border spinner-border-lg align-center"></span>
-            </td>
-        </tr> -->
   </tbody>
 </table>

@@ -54,7 +54,7 @@ export const postReducer = createReducer(
     });
   }),
   on(postActions.deletePostSuccess, (state, action) => {
-    return postAdapter.removeOne(action.payload, state);
+    return postAdapter.removeOne(action.id, state);
   }),
 
   on(postActions.updatePostSuccess, (state, action) => {

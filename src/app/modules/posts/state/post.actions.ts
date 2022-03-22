@@ -63,12 +63,12 @@ export const loadPostFail = createAction(
 
 export const deletePost = createAction(
   ActionTypes.DELETE_POST,
-  props<{ payload: number }>()
+  props<{ id: number }>()
 )
 
 export const deletePostSuccess = createAction(
   ActionTypes.DELETE_POST_SUCCESS,
-  props<{ payload: number }>()
+  props<{ id: number }>()
 )
 export const deletePostFail = createAction(
   ActionTypes.DELETE_POST_FAIL,

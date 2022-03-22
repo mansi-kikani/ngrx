@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable()
-export class CustomerEffect {
+export class PostEffect {
   constructor(private actions$: Actions, private mainService: MainService, private modalService: NgbModal) { }
 
   loadPosts$ = createEffect(() =>
@@ -52,7 +52,7 @@ export class CustomerEffect {
       switchMap((action) => {
         return this.mainService.deletePost(action).pipe(
           map((data) => {
-            return postActions.deletePostSuccess({ payload: action.payload });
+            return postActions.deletePostSuccess({ id: action.id });
           })
         );
       })

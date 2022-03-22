@@ -7,13 +7,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostsRoutingModule } from './posts-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { postReducer } from './state/post.reducer';
-import { CustomerEffect } from './state/post.effects';
+import { PostEffect } from './state/post.effects';
 import { ListPostsComponent } from './list-posts/list-posts.component';
 import { PostsComponent } from './posts.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddEditPostsComponent } from './add-edit-posts/add-edit-posts.component';
+import { PostDetailComponent } from './post-detail/post-detail.component';
 @NgModule({
-  declarations: [ListPostsComponent, PostsComponent, AddEditPostsComponent],
+  declarations: [ListPostsComponent, PostsComponent, AddEditPostsComponent, PostDetailComponent],
   imports: [
     CommonModule,
     PostsRoutingModule,
@@ -21,7 +22,7 @@ import { AddEditPostsComponent } from './add-edit-posts/add-edit-posts.component
     SharedModule,
     ReactiveFormsModule,
     StoreModule.forFeature('posts', postReducer),
-    EffectsModule.forFeature([CustomerEffect]),
+    EffectsModule.forFeature([PostEffect]),
     NgbModule
   ],
 })
