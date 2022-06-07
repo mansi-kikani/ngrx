@@ -4,6 +4,7 @@ import { postsAdapter, PostsState } from './post.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export const POST_STATE_NAME = 'posts';
+
 const getPostsState = createFeatureSelector<PostsState>(POST_STATE_NAME);
 
 export const postsSelectors = postsAdapter.getSelectors();
@@ -15,6 +16,9 @@ export const getPostEntities = createSelector(
   postsSelectors.selectEntities
 );
 
+export const getCount = createSelector(getPostsState, (state) => state.count);
+
+
 export const getPostById = createSelector(
   getPostEntities,
   getCurrentRoute,
@@ -22,5 +26,3 @@ export const getPostById = createSelector(
     return posts ? posts[route.params['id']] : null;
   }
 );
-
-export const getCount = createSelector(getPostsState, (state) => state.count);

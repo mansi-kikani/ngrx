@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let post of posts$ | async; else: noData">
+    <tr *ngFor="let post of post$ | async">
       <td>{{ post.id }}</td>
       <td>{{ post.title }}</td>
       <td>{{ post.body }}</td>

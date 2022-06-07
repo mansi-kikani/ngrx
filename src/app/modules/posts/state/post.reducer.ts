@@ -15,8 +15,7 @@ export interface AppState extends fromRoot.AppState {
   posts: PostState;
 }
 
-export const postAdapter: EntityAdapter<Post> =
-  createEntityAdapter<Post>();
+export const postAdapter: EntityAdapter<Post> = createEntityAdapter<Post>();
 
 export const defaultPost: PostState = {
   ids: [],
@@ -29,6 +28,8 @@ export const defaultPost: PostState = {
 
 export const initialState = postAdapter.getInitialState(defaultPost);
 
+
+
 export const postReducer = createReducer(
   initialState,
   on(postActions.loadPostsSuccess, (state, action) => {
@@ -37,15 +38,6 @@ export const postReducer = createReducer(
       loading: false,
       loaded: true,
     });
-  }),
-  on(postActions.LoadPostsFail, (state, action) => {
-    return {
-      ...state,
-      entities: {},
-      loading: false,
-      loaded: true,
-      error: action.payload
-    };
   }),
   on(postActions.loadPostSuccess, (state, action) => {
     return postAdapter.addOne(action.payload, {
@@ -59,6 +51,16 @@ export const postReducer = createReducer(
 
   on(postActions.updatePostSuccess, (state, action) => {
     return postAdapter.updateOne(action.payload, state);
+  }),
+
+  on(postActions.LoadPostsFail, (state, action) => {
+    return {
+      ...state,
+      entities: {},
+      loading: false,
+      loaded: true,
+      error: action.payload
+    };
   }),
 
   on(postActions.createPostSuccess, (state, action) => {

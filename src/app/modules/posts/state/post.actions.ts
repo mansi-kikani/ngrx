@@ -4,89 +4,69 @@ import { Update } from '@ngrx/entity';
 
 import { Post } from '../../../models/post';
 
-export enum ActionTypes {
-  LOAD_POSTS = '[Post] Load Posts',
-  LOAD_POSTS_SUCCESS = '[Post] Load Posts Success',
-  LOAD_POSTS_FAIL = '[Post] Load Posts Fail',
-  CREATE_POST = '[Post] Create Post',
-  CREATE_POST_SUCCESS = '[Post] Create Post Success',
-  CREATE_POST_FAIL = '[Post] Create Post Fail',
-
-  DELETE_POST = "[Post] Delete Post",
-  DELETE_POST_SUCCESS = "[Post] Delete Post Success",
-  DELETE_POST_FAIL = "[Post] Delete Post Fail",
-  LOAD_POST = '[Post] Load Post',
-  LOAD_POST_SUCCESS = '[Post] Load Post Success',
-  LOAD_POST_FAIL = '[Post] Load Post Fail',
-
-  UPDATE_POST = "[Post] Update Post",
-  UPDATE_POST_SUCCESS = "[Post] Update Post Success",
-  UPDATE_POST_FAIL = "[Post] Update Post Fail",
-}
-
-export const loadPosts = createAction(ActionTypes.LOAD_POSTS);
+/* LOAD POST ACTIONS */
+export const loadPosts = createAction('[ List Post] Load Posts');  /* here, I use category name as component page. */
 export const loadPostsSuccess = createAction(
-  ActionTypes.LOAD_POSTS_SUCCESS,
+  '[List Post] Load Posts Success',
   props<{ payload: Post[] }>()
 );
 export const LoadPostsFail = createAction(
-  ActionTypes.LOAD_POSTS_FAIL,
+  '[List Post] Load Posts Fail',
   props<{ payload: string }>()
 );
-export const CreatePost = createAction(
-  ActionTypes.CREATE_POST,
+
+/* CREATE POST ACTIONS */
+export const createPost = createAction(
+  '[ Add Post] Create Post',
   props<{ payload: Post }>()
 );
 export const createPostSuccess = createAction(
-  ActionTypes.CREATE_POST_SUCCESS,
+  '[Add Post] Create  Success',
   props<{ payload: Post }>()
 );
 export const createPostFail = createAction(
-  ActionTypes.CREATE_POST_FAIL,
+  '[Add Post] Create  Fail',
   props<{ payload: string }>()
 );
 
+/* GET POST BY ID ACTIONS */
 export const loadPost = createAction(
-  ActionTypes.LOAD_POST,
+  '[GET POST API] Load Post data',  /* here, I use category name as backend API */
   props<{ payload: number }>()
 );
-
 export const loadPostSuccess = createAction(
-  ActionTypes.LOAD_POST_SUCCESS,
+  '[GET POST API] Load Post data Success',
   props<{ payload: Post }>()
 );
-
 export const loadPostFail = createAction(
-  ActionTypes.LOAD_POST_FAIL,
+  '[GET POST API] Load Post data Fail',
   props<{ payload: string }>()
 );
 
+/* DELETE POST ACTIONS */
 export const deletePost = createAction(
-  ActionTypes.DELETE_POST,
+  '[Delete Post] Delete post data',
   props<{ id: number }>()
-)
-
+);
 export const deletePostSuccess = createAction(
-  ActionTypes.DELETE_POST_SUCCESS,
+  '[ Delete Post] Delete post data Success',
   props<{ id: number }>()
-)
+);
 export const deletePostFail = createAction(
-  ActionTypes.DELETE_POST_FAIL,
+  '[Delete Post] Delete post data Fail',
   props<{ payload: string }>()
-)
+);
 
+/* UPDATE POST ACTIONS */
 export const updatePost = createAction(
-  ActionTypes.UPDATE_POST,
+  '[Update Post] Update Post data',
   props<{ payload: Post }>()
-)
-
+);
 export const updatePostSuccess = createAction(
-  ActionTypes.UPDATE_POST_SUCCESS,
+  '[Update Post] Update Post data success',
   props<{ payload: Update<Post> }>()
-)
+);
 export const updatePostFail = createAction(
-  ActionTypes.UPDATE_POST_FAIL,
+  '[Update Post] Update Post data fail',
   props<{ payload: string }>()
-)
-
-
+);
