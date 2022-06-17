@@ -60,20 +60,20 @@ export class ListPostsComponent implements OnInit {
   }
   deletePost(data: Post) {
     if (confirm('Are You Sure You want to Delete the User?')) {
-      this.apollo
-        .mutate({
-          mutation: deletePost,
-          variables: {
-            input: {
-              id: data.id,
-            },
-          },
-        })
-        .subscribe(({ data }) => {
-          console.log('data, data.Save ====>', data);
-        });
+      // this.apollo
+      //   .mutate({
+      //     mutation: deletePost,
+      //     variables: {
+      //       input: {
+      //         id: data.id,
+      //       },
+      //     },
+      //   })
+      //   .subscribe(({ data }) => {
+      //     console.log('data, data.Save ====>', data);
+      //   });
 
-      // this.store.dispatch(postActions.deletePost({ id: data.id }));
+      this.store.dispatch(postActions.deletePost({ id: data.id }));
     }
   }
 
